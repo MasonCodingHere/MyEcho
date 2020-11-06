@@ -1,19 +1,19 @@
 /*************************************************************************
-	> File Name: client.cpp
+	> File Name: server.cpp
 	> Author: GeekPanda
 	> Mail: xgx127@126.com 
-	> Created Time: 2020年11月06日 星期五 10时25分51秒
+	> Created Time: 2020年11月06日 星期五 13时00分33秒
  ************************************************************************/
 
 #include <iostream>
-#include "../include/MyClient.h"
+#include "../include/MyServer.h"
 
 int main(int argc, char **argv)
 {
-	MyClient myclient;
-	myclient.MyGetAddrInfo();
-	myclient.GetClientFd();
-	myclient.ClientRW();
+	MyServer myserver;
+	myserver.MyGetAddrInfo();
+	myserver.MyListenFd();
+	myserver.MyServerRW();
 
 	return 0;
 }
