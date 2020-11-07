@@ -63,12 +63,14 @@ int MyClient::GetClientFd()
 
 void MyClient::ClientRW()
 {
-	std::cout << "发送以下信息给服务端: ";
-	while (fgets(mc_buf, MAXLINE, stdin) != NULL)
+	while (1)
 	{
-		write(mc_clientfd, mc_buf, strlen(mc_buf));
-	//	read(mc_clientfd, mc_buf, MAXLINE);
-		fputs(mc_buf, stdout);
+		bzero(mc_buf, sizeof(mc_buf));
+		scanf("%s", mc_buf);
+		write(mc_clientfd, mc_buf, sizeof(mc_buf));
+		bzero(mc_buf, sizeof(mc_buf));
+		read(mc_clientfd, mc_buf, sizeof(mc_buf));
+		printf("Echo:%s\n", mc_buf);
 	}
 
 	close(mc_clientfd);

@@ -9,6 +9,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
+#include <ctype.h>
 
 void MyServer::MyGetAddrInfo()
 {
@@ -79,10 +80,16 @@ void MyServer::MyServerRW()
 		getnameinfo((sockaddr *) &clientaddr, clientlen, client_hostname, MAXLINE, client_port, MAXLINE, 0);
 		printf("连接到(%s, %s)\n", client_hostname, client_port);
 
-		while((n = read(ms_connfd, ms_buf, MAXLINE)) > 0)
+		while((n = read(ms_connfd, ms_buf, MAXLINE)))
 		{
-			printf("服务器收到了 %d 个字节\n", (int)n);
-			write(ms_connfd, ms_buf, n);
+			printf("服务器收到了 %d 个字节\n", int(sizeof(ms_buf)));
+			for (int i = 0; i < MAXLINE; ++i)
+			{
+				if (ms_buf[i] != 0)
+					ms_buf[i] = toupper(ms_buf[i]);
+			}
+			write(ms_connfd, ms_buf, MAXLINE);
+			bzero(ms_buf, MAXLINE);
 		}
 
 		close(ms_connfd);
