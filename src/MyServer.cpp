@@ -8,6 +8,7 @@
 #include "../include/MyServer.h"
 #include <string.h>
 #include <unistd.h>
+#include <iostream>
 
 void MyServer::MyGetAddrInfo()
 {
@@ -18,7 +19,10 @@ void MyServer::MyGetAddrInfo()
 	hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
 	hints.ai_flags |= AI_NUMERICSERV;
 
-	getaddrinfo(NULL, ms_serverPort.c_str(), &hints, &ms_listp);
+	if((getaddrinfo(NULL, ms_serverPort.c_str(), &hints, &ms_listp)) == 0)
+		std::cout << "服务端：转换为套接字地址结构成功" << std::endl;
+	else
+		std::cout << "服务端：转换为套接字地址结构失败" << std::endl;
 }
 
 int MyServer::MyListenFd()
@@ -29,12 +33,22 @@ int MyServer::MyListenFd()
 	{
 		ms_listenfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
 		if (ms_listenfd < 0)
+		{
+			std::cout << "服务端：创建套接字描述符失败" << std::endl;
 			continue;
-		
+		}
+		else
+			std::cout << "服务端：创建套接字描述符成功" << std::endl;
+
 		setsockopt(ms_listenfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&ms_optval, sizeof(int));
 
 		if (bind(ms_listenfd, p->ai_addr, p->ai_addrlen) == 0)
+		{
+			std::cout << "服务端：bind执行成功" << std::endl;
 			break;
+		}
+		else
+			std::cout << "服务端：bind执行失败" << std::endl;
 
 		close(ms_listenfd);
 	}

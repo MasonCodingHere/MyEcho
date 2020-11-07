@@ -20,7 +20,10 @@ void MyClient::MyGetAddrInfo()
 	hints.ai_flags = AI_NUMERICSERV;
 	hints.ai_flags |= AI_ADDRCONFIG;
 
-	getaddrinfo(mc_serverIP.c_str(), mc_serverPort.c_str(), &hints, &mc_listp);
+	if((getaddrinfo(mc_serverIP.c_str(), mc_serverPort.c_str(), &hints, &mc_listp)) == 0)
+		std::cout << "转换为套接字地址结构成功" << std::endl;
+	else
+		std::cout << "转换为套接字地址结构失败" << std::endl;
 }
 
 int MyClient::GetClientFd()
@@ -30,11 +33,24 @@ int MyClient::GetClientFd()
 	{
 		mc_clientfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
 		if (mc_clientfd < 0)
+		{
+			std::cout << "创建套接字描述符失败" << std::endl;
 			continue;
+		}
+		else
+			std::cout << "创建套接字描述符成功" << std::endl;
 
 		if (connect(mc_clientfd, p->ai_addr, p->ai_addrlen) != -1)
+		{
+			std::cout << "与服务器建立连接成功" << std::endl;
 			break;
+		}
 
+		else
+		{
+			std::cout << "与服务器建立连接失败" << std::endl;
+			exit(-1);
+		}		
 		close(mc_clientfd);
 	}
 
@@ -47,10 +63,11 @@ int MyClient::GetClientFd()
 
 void MyClient::ClientRW()
 {
+	std::cout << "发送以下信息给服务端: ";
 	while (fgets(mc_buf, MAXLINE, stdin) != NULL)
 	{
 		write(mc_clientfd, mc_buf, strlen(mc_buf));
-		read(mc_clientfd, mc_buf, MAXLINE);
+	//	read(mc_clientfd, mc_buf, MAXLINE);
 		fputs(mc_buf, stdout);
 	}
 
