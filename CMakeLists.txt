@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.8)
+project (MyEcho)
+set (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+option (CLIENT "For Building Client" ON)
+add_subdirectory (./src)

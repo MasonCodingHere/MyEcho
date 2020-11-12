@@ -70,7 +70,7 @@ void MyClient::ClientRW()
 		write(mc_clientfd, mc_buf, sizeof(mc_buf));
 		bzero(mc_buf, sizeof(mc_buf));
 		read(mc_clientfd, mc_buf, sizeof(mc_buf));
-		printf("Echo:%s\n", mc_buf);
+		printf("来自服务器:%s\n", mc_buf);
 	}
 
 	close(mc_clientfd);

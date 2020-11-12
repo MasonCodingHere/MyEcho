@@ -60,8 +60,11 @@ int MyServer::MyListenFd()
 	if (listen(ms_listenfd, 1024) < 0)
 	{
 		close(ms_listenfd);
+		std::cout << "服务端：转化为监听套接字失败" << std::endl;
 		return -1;
 	}
+	else
+		std::cout << "服务端：转化为监听套接字成功" << std::endl;
 
 	return 0;
 }
@@ -82,7 +85,7 @@ void MyServer::MyServerRW()
 
 		while((n = read(ms_connfd, ms_buf, MAXLINE)))
 		{
-			printf("服务器收到了 %d 个字节\n", int(sizeof(ms_buf)));
+			printf("服务器收到了 %d 个字节\n", int(strlen(ms_buf)));
 			for (int i = 0; i < MAXLINE; ++i)
 			{
 				if (ms_buf[i] != 0)
