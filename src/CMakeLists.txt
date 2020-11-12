@@ -5,6 +5,7 @@ set (SERVER_SRC_LIST
 		./MyServer.cpp
 		./server.cpp)
 include_directories (../include)
+add_definitions (-std=c++11)
 
 if (CLIENT)
 	add_executable (client ${CLIENT_SRC_LIST})
