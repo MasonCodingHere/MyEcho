@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: MyServer.cpp
-	> Author: GeekPanda
-	> Mail: xgx127@126.com 
-	> Created Time: 2020年11月06日 星期五 10时59分49秒
- ************************************************************************/
-
 #include "../include/MyServer.h"
 #include <string.h>
 #include <unistd.h>
