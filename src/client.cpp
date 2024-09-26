@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: client.cpp
-	> Author: GeekPanda
-	> Mail: xgx127@126.com 
-	> Created Time: 2020年11月06日 星期五 10时25分51秒
- ************************************************************************/
-
 #include <iostream>
 #include <string>
 #include "../include/MyClient.h"
