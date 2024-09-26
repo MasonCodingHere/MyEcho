@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: MyClient.cpp
-	> Author: GeekPanda
-	> Mail: xgx127@126.com 
-	> Created Time: 2020年11月06日 星期五 09时47分22秒
- ************************************************************************/
-
 #include <iostream>
 #include <sys/socket.h>
 #include <unistd.h>
